@@ -23,8 +23,8 @@ class WorldSerializer
     store_point = Store::Point.create!(x: x, y: y, corral_id: corral.id)
 
     entities.each do |entity|
-      store_entity = Store::Entity.create!
-      Store::EntityPoint.create!(entity_id: store_entity.id, point_id: store_point.id)
+      store_entity = Store::Entity.create(point_id: store_point.id)
+      # Store::EntityPoint.create!(entity_id: store_entity.id, point_id: store_point.id)
     end
   end
 end
