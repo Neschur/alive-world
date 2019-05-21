@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_21_191335) do
+ActiveRecord::Schema.define(version: 2019_05_21_201614) do
 
   create_table "corrals", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_05_21_191335) do
   create_table "points", force: :cascade do |t|
     t.integer "x"
     t.integer "y"
-    t.integer "world_id"
+    t.integer "corral_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
