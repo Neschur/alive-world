@@ -1,0 +1,2 @@
+class Corral < ApplicationRecord
+end

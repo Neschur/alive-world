@@ -1,0 +1,2 @@
+class PointEntity < ApplicationRecord
+end
