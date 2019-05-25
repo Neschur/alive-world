@@ -1,2 +1,6 @@
-<canvas id="world" width="200" height="200">
+<script>
+  const worldData = <%= @world.to_json.html_safe %>
+</script>
+
+<canvas id="world" width="500" height="500">
 </canvas>

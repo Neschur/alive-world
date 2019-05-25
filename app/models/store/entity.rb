@@ -1,5 +1,5 @@
 module Store
   class Entity < ApplicationRecord
-    belongs_to :point
+    has_one :point
   end
 end

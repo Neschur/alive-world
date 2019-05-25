@@ -27,17 +27,17 @@ class WorldDrawer {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  const data = [
-    [
-      '#777',
-      '#777',
-    ],
-    [
-      '#777',
-      '#777',
-    ],
-  ];
+  // const data = [
+  //   [
+  //     '#777',
+  //     '#777',
+  //   ],
+  //   [
+  //     '#777',
+  //     '#777',
+  //   ],
+  // ];
 
-  const drawer = new WorldDrawer(data);
+  const drawer = new WorldDrawer(worldData);
   drawer.draw();
 });

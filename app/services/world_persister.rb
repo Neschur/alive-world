@@ -20,6 +20,7 @@ class WorldPersister
   attr_reader :world, :store_corral
 
   def save_point!(x:, y:, entity:)
-    store_point = Store::Point.create!(x: x, y: y, corral_id: corral.id, entity_id: store_entity)
+    store_entity = Store::Entity.create!(entity_type: entity.type)
+    store_point = Store::Point.create!(x: x, y: y, corral: store_corral, entity: store_entity)
   end
 end
