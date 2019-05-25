@@ -5,8 +5,8 @@ class WorldDrawer {
     this.pointHeight = 10;
     this.pointWidth = 10;
 
-    let canvas = document.getElementById('world');
-    this.context = canvas.getContext('2d');
+    this.canvas = document.getElementById('world');
+
   }
 
   draw() {
@@ -18,26 +18,17 @@ class WorldDrawer {
   }
 
   drawPoint(x, y, color) {
-    this.context.strokeStyle = color;
-    this.context.fillStyle = color;
-    this.context.rect(x * this.pointWidth, y * this.pointHeight, this.pointWidth, this.pointHeight);
-    this.context.fill();
+    let context = this.canvas.getContext('2d');
+    context.beginPath();
+    context.strokeStyle = color;
+    context.fillStyle = color;
+    context.rect(x * this.pointWidth, y * this.pointHeight, this.pointWidth, this.pointHeight);
+    context.fill();
   }
 }
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  // const data = [
-  //   [
-  //     '#777',
-  //     '#777',
-  //   ],
-  //   [
-  //     '#777',
-  //     '#777',
-  //   ],
-  // ];
-
   const drawer = new WorldDrawer(worldData);
   drawer.draw();
 });

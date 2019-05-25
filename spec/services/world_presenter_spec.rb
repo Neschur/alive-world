@@ -3,7 +3,7 @@ require 'rails_helper'
 describe WorldPresenter do
   subject(:presenter) { described_class.new(world) }
 
-  let(:world) { WorldGenerator.new(sizex: 2, sizey: 2).call }
+  let(:world) { build(:simple_world_2x2) }
 
   describe '#new' do
     it 'accepts world' do
@@ -11,13 +11,15 @@ describe WorldPresenter do
     end
   end
 
-  describe '#save!' do
+  describe '#data' do
     subject(:presentation) { presenter.data }
+
+    let(:land_colour) { described_class::COLOURS[:land] }
 
     it 'save world to database' do
       expect(presentation).to eq([
-        ['#00ac17', '#00ac17'],
-        ['#00ac17', '#00ac17'],
+        [land_colour, land_colour],
+        [land_colour, land_colour],
       ])
     end
   end

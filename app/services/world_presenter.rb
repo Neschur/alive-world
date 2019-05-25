@@ -1,6 +1,10 @@
 class WorldPresenter
   COLOURS = {
-    land: '#00ac17',
+    land: '#c17e00',
+    stone: '#4e4431',
+    grass: '#00ac17',
+    grazer: '#275fe2',
+    predator: '#9014c1',
   }
 
   def initialize(world)
