@@ -4,6 +4,4 @@ class World
   def initialize(ground)
     @ground = ground
   end
-
-  private
 end

@@ -17,7 +17,7 @@ class WorldGenerator
   def generate_base
     @ground = sizex.times.map do
       sizey.times.map do
-        Array.new
+        Entity.new(:land)
       end
     end
   end
