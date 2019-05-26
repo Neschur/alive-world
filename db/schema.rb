@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_26_102020) do
+ActiveRecord::Schema.define(version: 2019_05_26_102143) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "corrals", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -29,6 +32,12 @@ ActiveRecord::Schema.define(version: 2019_05_26_102020) do
     t.integer "x"
     t.integer "y"
     t.integer "corral_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "worlds", force: :cascade do |t|
+    t.uuid "uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
