@@ -3,7 +3,7 @@ require 'rails_helper'
 describe WorldPersister do
   subject(:persister) { described_class.new(world) }
 
-  let(:world) { WorldGenerator.new(sizex: 2, sizey: 2).call }
+  let(:world) { WorldGenerator.new(size: { x: 2, y: 2 }).call }
 
   describe '#new' do
     it 'accepts world' do

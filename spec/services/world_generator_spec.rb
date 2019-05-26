@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe WorldGenerator do
-  subject(:generator) { described_class.new(sizex: 2, sizey: 2) }
+  subject(:generator) { described_class.new(size: { x: 2, y: 2 }) }
 
   describe '#new' do
     it 'accepts sizex and sizey' do
