@@ -2,7 +2,7 @@ module Store
   class Point < ApplicationRecord
     self.table_name = :points
 
-    belongs_to :entity
+    has_many :entities
     belongs_to :corral
   end
 end

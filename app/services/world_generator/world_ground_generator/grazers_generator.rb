@@ -1,16 +1,9 @@
 class WorldGenerator
   class WorldGroundGenerator
-    class GrazersGenerator
-      def initialize(size:, ground: nil)
-        @size = size
-        @ground = ground
-      end
-
+    class GrazersGenerator < BaseGenerator
       def call
-        ground.map do |line|
-          line.map do |entity|
-            random_entity(entity)
-          end
+        each_point do |_x, _y, entities|
+          [random_entity(entities)].compact
         end
       end
 
@@ -21,11 +14,7 @@ class WorldGenerator
       def random_entity(default_entity)
         type = :grazer if turn_the_drum(0.003)
 
-        if type
-          Entity.new(type)
-        else
-          return default_entity
-        end
+        Entity.new(type) if type
       end
 
       def turn_the_drum(probability)

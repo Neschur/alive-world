@@ -5,7 +5,8 @@ class WorldGenerator
     end
 
     def call
-      ground = generate_landscape
+      ground = generate_base
+      ground = generate_landscape(ground)
       ground = generate_grazers(ground)
 
       ground
@@ -15,8 +16,16 @@ class WorldGenerator
 
     attr_reader :size
 
-    def generate_landscape
-      LandscapeGenerator.new(size: size).call
+    def generate_base
+      size[:x].times.map do
+        size[:y].times.map do
+          []
+        end
+      end
+    end
+
+    def generate_landscape(ground)
+      LandscapeGenerator.new(size: size, ground: ground).call
     end
 
     def generate_grazers(ground)

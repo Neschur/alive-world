@@ -1,18 +1,12 @@
 class WorldGenerator
   class WorldGroundGenerator
-    class LandscapeGenerator
+    class LandscapeGenerator < BaseGenerator
       GRASS_PROBABILITY = 0.88
       STONE_PROBABILITY = 0.06
 
-      def initialize(size:, ground: nil)
-        @size = size
-      end
-
       def call
-        size[:x].times.map do
-          size[:y].times.map do
-            Entity.new(random_entity_type)
-          end
+        each_point do |_x, _y, _entities|
+          [Entity.new(random_entity_type)]
         end
       end
 
