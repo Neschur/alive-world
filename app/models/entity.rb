@@ -1,5 +1,6 @@
 class Entity
-  TYPES = [:land, :stone, :grass, :grazer, :predator]
+  LAND_TYPES = [:land, :stone]
+  TYPES = LAND_TYPES + [:grass, :grazer, :predator]
 
   attr_reader :type
 
@@ -7,6 +8,12 @@ class Entity
     validate(type)
 
     @type = type
+  end
+
+  def is_a_type?(the_type)
+    validate(the_type)
+
+    type == the_type
   end
 
   private

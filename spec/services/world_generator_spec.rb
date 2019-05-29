@@ -20,10 +20,10 @@ describe WorldGenerator do
         expect(line).to be_a(Array)
         expect(line.size).to eq(2)
 
-        line.each do |entities|
-          entities.each do |entity|
-            expect(entity).to be_a(Entity)
-          end
+        line.each do |point|
+          expect(point).to be_a(Point)
+
+          expect(point.landscape_entity).not_to be_nil
         end
       end
     end

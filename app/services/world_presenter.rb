@@ -13,8 +13,15 @@ class WorldPresenter
 
   def data
     @world.ground.map do |line|
-      line.map do |entity|
-        COLOURS[entity.type.to_sym]
+      line.map do |point|
+        mark = point.landscape_entity.type
+
+        if point.active_entities?
+          entity = point.active_entities.find { |e| e.type == :grazer } || point.active_entities.first
+          mark = entity.type
+        end
+
+        mark
       end
     end
   end

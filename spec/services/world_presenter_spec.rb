@@ -14,12 +14,10 @@ describe WorldPresenter do
   describe '#data' do
     subject(:presentation) { presenter.data }
 
-    let(:land_colour) { described_class::COLOURS[:land] }
-
     it 'save world to database' do
       expect(presentation).to eq([
-        [land_colour, land_colour],
-        [land_colour, land_colour],
+        [:stone, :land],
+        [:land, :grazer],
       ])
     end
   end

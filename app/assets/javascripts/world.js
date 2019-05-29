@@ -1,4 +1,12 @@
 class WorldDrawer {
+  COLOURS = {
+    land: '#c17e00',
+    stone: '#4e4431',
+    grass: '#00ac17',
+    grazer: '#275fe2',
+    predator: '#9014c1',
+  }
+
   constructor(data) {
     this.data = data;
 
@@ -17,7 +25,8 @@ class WorldDrawer {
     });
   }
 
-  drawPoint(x, y, color) {
+  drawPoint(x, y, point) {
+    let color = this.COLOURS[point];
     let context = this.canvas.getContext('2d');
     context.beginPath();
     context.strokeStyle = color;

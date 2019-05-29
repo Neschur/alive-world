@@ -20,8 +20,8 @@ class WorldGenerator
 
       def each_point
         ground.each_with_index do |line, x|
-          line.each_with_index do |entities, y|
-            ground[x][y] += yield(x, y, entities)
+          line.each_with_index do |point, y|
+            yield(x, y, point)
           end
         end
       end

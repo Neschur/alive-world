@@ -19,7 +19,7 @@ class WorldGenerator
     def generate_base
       size[:x].times.map do
         size[:y].times.map do
-          []
+          Point.new
         end
       end
     end
