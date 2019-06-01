@@ -1,25 +1,31 @@
 class WorldGenerator
-  class WorldGroundGenerator
+  class GroundGenerator
     class BaseGenerator
-      def initialize(size:, ground:)
+      def initialize(size:, data:)
         @size = size
-        @ground = ground
+        @data = data
       end
 
       def call
-        raise NotImplementedError
+        generate
+
+        data
       end
 
       private
 
-      attr_reader :size, :ground
+      attr_reader :size, :data
+
+      def generate
+        raise NotImplementedError
+      end
 
       def turn_the_drum(probability)
         rand < probability
       end
 
       def each_point
-        ground.each_with_index do |line, x|
+        data.each_with_index do |line, x|
           line.each_with_index do |point, y|
             yield(x, y, point)
           end

@@ -4,7 +4,7 @@ class WorldGenerator
   end
 
   def call
-    ground = WorldGroundGenerator.new(size: size).call
+    ground = GroundGenerator.new(size: size).call
     World.new(ground)
   end
 

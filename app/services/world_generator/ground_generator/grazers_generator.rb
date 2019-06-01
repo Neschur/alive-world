@@ -1,17 +1,15 @@
 class WorldGenerator
-  class WorldGroundGenerator
+  class GroundGenerator
     class GrazersGenerator < BaseGenerator
-      def call
+      private
+
+      def generate
         each_point do |_x, _y, point|
           entity = random_entity
 
           point.push_entity(entity) if entity
         end
       end
-
-      private
-
-      attr_reader :size, :ground
 
       def random_entity
         type = :grazer if turn_the_drum(0.003)
