@@ -10,38 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_01_170039) do
+ActiveRecord::Schema.define(version: 2019_06_01_170040) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "corrals", force: :cascade do |t|
+  create_table "worlds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.json "data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "world_id"
-  end
-
-  create_table "entities", force: :cascade do |t|
-    t.string "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "entity_type"
-    t.integer "point_id"
-  end
-
-  create_table "points", force: :cascade do |t|
-    t.integer "x"
-    t.integer "y"
-    t.integer "corral_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "worlds", force: :cascade do |t|
-    t.uuid "uuid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.json "data"
   end
 
 end
