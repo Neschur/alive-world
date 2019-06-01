@@ -14,7 +14,6 @@ class WorldDrawer {
     this.pointWidth = 10;
 
     this.canvas = document.getElementById('world');
-
   }
 
   draw() {
@@ -26,11 +25,33 @@ class WorldDrawer {
   }
 
   drawPoint(x, y, point) {
-    let color = this.COLOURS[point];
+    if(point.entities.length == 0) {
+      this.drawRect(x, y, point.landscape, 1);
+    } else {
+
+      let entities = point.entities
+
+      const importantEntites = point.entities.filter(e => e.type != 'grass');
+
+      if(importantEntites.length > 0) {
+        entities = importantEntites;
+      }
+
+      let fullnest = entities.length;
+      entities.forEach(entity => {
+        this.drawRect(x, y, entity.type, 1.0 / fullnest);
+      })
+
+    }
+  }
+
+  drawRect(x, y, colour, globalAlpha) {
+    let color = this.COLOURS[colour];
     let context = this.canvas.getContext('2d');
     context.beginPath();
     context.strokeStyle = color;
     context.fillStyle = color;
+    context.globalAlpha = globalAlpha;
     context.rect(x * this.pointWidth, y * this.pointHeight, this.pointWidth, this.pointHeight);
     context.fill();
   }
@@ -38,6 +59,6 @@ class WorldDrawer {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  const drawer = new WorldDrawer(worldData);
+  const drawer = new WorldDrawer(worldData['ground']);
   drawer.draw();
 });

@@ -11,12 +11,12 @@ class WorldGenerator
     end
 
     def call
-      ground_data = nil
+      ground = nil
       GENERATORS_LIST.each do |generator|
-        ground_data = generator.new(size: size, data: ground_data).call
+        ground = generator.new(size: size, data: ground).call
       end
 
-      Ground.new(ground_data)
+      ground
     end
 
     private
