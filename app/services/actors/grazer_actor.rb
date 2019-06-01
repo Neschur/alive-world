@@ -1,5 +1,5 @@
 class GrazerActor
-  def initialize(corral, x:, y:, entity:)
+  def initialize(world, x:, y:, entity:)
     @corral = corral
     @x = x
     @y = y

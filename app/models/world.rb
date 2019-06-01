@@ -3,25 +3,27 @@ class World
 
   def initialize(ground)
     @ground = ground
+    @size = fetch_size_from_ground(ground)
   end
 
-  # def to_json
-  #   { ground: ground.data }.to_json
-  # end
+  attr_reader :size
 
-  # def each_point
-  #   ground.each_with_index do |line, x|
-  #     line.each_with_index do |point, y|
-  #       yield(x, y, point)
-  #     end
-  #   end
-  # end
+  def [](x, y)
+    raise IndexError unless valid_indexes?(x, y)
 
-  # def each_point_on_range(xx, yy)
-  #   ground[xx].each_with_index do |line, x|
-  #     line[yy].each_with_index do |point, y|
-  #       yield(x, y, point)
-  #     end
-  #   end
-  # end
+    ground[x][y]
+  end
+
+  private
+
+  def fetch_size_from_ground(ground)
+    {
+      lat: ground.size,
+      long: ground.first&.size || 0,
+    }
+  end
+
+  def valid_indexes?(x, y)
+    (x >=0 && x < size[:lat]) && (y >=0 && y < size[:long])
+  end
 end

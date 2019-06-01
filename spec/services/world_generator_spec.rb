@@ -15,13 +15,12 @@ describe WorldGenerator do
     it 'generate world accordings sizes with entities' do
       expect(world).to be_a(World)
 
-      world.ground.each do |line|
-        expect(line).to be_a(Array)
-        expect(line.size).to eq(2)
+      size = world.size
+      size[:lat].times do |x|
+        size[:long].times do |y|
+          point = world[x, y]
 
-        line.each do |point|
           expect(point).to be_a(Point)
-
           expect(point.landscape).not_to be_nil
         end
       end
