@@ -14,6 +14,26 @@ class World
     ground[x][y]
   end
 
+  def each_point
+    ground.each_with_index do |line, x|
+      line.each_with_index do |point, y|
+        yield(x, y, point)
+      end
+    end
+  end
+
+  def map
+    memo = []
+
+    ground.each_with_index do |line, x|
+      line.each_with_index do |point, y|
+        memo << yield(x, y, point)
+      end
+    end
+
+    memo
+  end
+
   private
 
   def fetch_size_from_ground(ground)

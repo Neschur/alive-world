@@ -7,8 +7,7 @@ class GrazerActor
 
   def action_result
     {
-      action: :move, # move, stay, eat
-      options: [x + 1, y + 1],
+      action: :stay,
     }
   end
 
