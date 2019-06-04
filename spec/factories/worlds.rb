@@ -8,4 +8,10 @@ FactoryBot.define do
       new(ground)
     end
   end
+
+  factory :random_world_100x100, class: World do
+    initialize_with do
+      WorldGenerator.new(size: { x: 100, y: 100 }).call
+    end
+  end
 end

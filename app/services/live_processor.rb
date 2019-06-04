@@ -1,37 +1,24 @@
 class LiveProcessor
-  ACTORS = {
-    grazer: GrazerActor,
-  }.freeze
-
   def initialize(world)
+    @world = world
   end
 
   def step
-    collect_actors
+    @actors = collect_actors
     process_actors
   end
 
-  def collect_actors
-    @actors = world.map do |x, y, point|
-      collect_actors_for_point(x, y, point)
-    end.flatten
-  end
+  private
 
-  def collect_actors_for_point(x, y, point)
-    actors = PointProcessor.new(point).actors
-    actors.map do
-      {
-        actor: actor,
-        x: x,
-        y: y,
-      }
-    end
+  attr_accessor :world, :actors
+
+  def collect_actors
+    ActorCollector.new(world).call
   end
 
   def process_actors
-    actors.map do |actor_data|
-      result = actor.call
-      ActionProcessor.new(result)
+    actors.map do |actors|
+      binding.pry
     end
   end
 end
