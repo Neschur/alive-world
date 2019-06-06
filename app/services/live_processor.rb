@@ -6,8 +6,6 @@ class LiveProcessor
   def step
     world.each_point do |x, y, point|
       point.entities.each do |entity|
-        next if entity.type == :grass
-
         work_with_entity(entity, x: x, y: y)
       end
     end
