@@ -16,15 +16,7 @@ class LiveProcessor
 
     # TODO - to another class, refactor
     def do_action(action_data)
-      action_processor.new(entity, world: world, action_data: action_data, x:  x, y: y)
-      action = action_data
-      options = action_data[:options]
-      if action[:action] == :move && world[x + options[:x], y + options[:y]]
-        world[x, y].remove_entity!(entity)
-        world[x + options[:x], y + options[:y]].push_entity!(entity)
-      else
-        # YYY
-      end
+      action_processor.new(entity, world: world, action_data: action_data, x: x, y: y).call
     end
 
     private

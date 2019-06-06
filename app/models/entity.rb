@@ -1,13 +1,16 @@
 class Entity
   LAND_TYPES = [:land, :stone]
   TYPES = LAND_TYPES + [:grass, :grazer, :predator]
+  DEFAULT_HEALTH = 100
 
   attr_reader :type
+  attr_accessor :health
 
-  def initialize(type)
+  def initialize(type, health: DEFAULT_HEALTH)
     validate(type)
 
     @type = type
+    @health = health
   end
 
   def is_a_type?(the_type)

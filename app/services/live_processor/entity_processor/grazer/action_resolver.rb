@@ -8,6 +8,18 @@ class LiveProcessor
         end
 
         def call
+          if rand(2) == 0
+            random_move
+          else
+            eat
+          end
+        end
+
+        private
+
+        attr_reader :entity, :view_field
+
+        def random_move
           {
             action: :move,
             options: {
@@ -17,9 +29,14 @@ class LiveProcessor
           }
         end
 
-        private
-
-        attr_reader :entity, :view_field
+        def eat
+          {
+            action: :eat,
+            options: {
+              target: nil
+            }
+          }
+        end
       end
     end
   end

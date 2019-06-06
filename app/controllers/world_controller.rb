@@ -17,6 +17,7 @@ class WorldController < ApplicationController
 
   def world
     processor = LiveProcessor.new(store_world.load_world)
+    100.times { processor.step }
     new_world = processor.step
     store_world.save_world!(new_world)
 
@@ -28,7 +29,7 @@ class WorldController < ApplicationController
   end
 
   def generate_world
-    world = WorldGenerator.new(size: { x: 30, y: 30 }).call
+    world = WorldGenerator.new(size: { x: 20, y: 20 }).call
   end
 
   def uuid
