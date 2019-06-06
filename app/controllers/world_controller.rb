@@ -1,22 +1,44 @@
 class WorldController < ApplicationController
-  DEFAULT_UUID = '7cacfb9f-e711-4022-9f73-d6d6d979641a'
+  DEFAULT_UUID = '7cacfb9f-e711-0100-0000-d6d6d979641a'
 
   def index
-    store_world = get_world_from_db
-    processor = LiveProcessor.new(store_world.load_world)
-    new_world = processor.step
-    store_world.save_world!(new_world)
+    @world = world.to_json
 
-    @world = new_world.to_json
+    render :show
+  end
+
+  def show
+    @world = world.to_json
+
+    render :show
   end
 
   private
 
-  def get_world_from_db
-    Store::World.where(id: DEFAULT_UUID).first || Store::World.create(id: DEFAULT_UUID, data: generate_world.to_json)
+  def world
+    processor = LiveProcessor.new(store_world.load_world)
+    new_world = processor.step
+    store_world.save_world!(new_world)
+
+    new_world
+  end
+
+  def store_world
+    Store::World.where(id: uuid).first || Store::World.create(id: uuid, data: generate_world.to_json)
   end
 
   def generate_world
     world = WorldGenerator.new(size: { x: 30, y: 30 }).call
+  end
+
+  def uuid
+    raise unless validate_uuid_format(params['id'])
+
+    params['id'] || DEFAULT_UUID
+  end
+
+  def validate_uuid_format(uuid)
+    uuid_regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+    uuid_regex.match?(uuid.to_s.downcase)
   end
 end
