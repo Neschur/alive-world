@@ -8,7 +8,7 @@ class WorldGenerator
       def generate
         each_point do |_x, _y, point|
           if point.landscape == :land
-            point.push_entity(Entity.new(:grass)) if turn_the_drum(GRASS_PROBABILITY)
+            point.push_entity!(Entity.new(:grass)) if turn_the_drum(GRASS_PROBABILITY)
           end
         end
       end

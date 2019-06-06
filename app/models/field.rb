@@ -1,3 +1,3 @@
-class World
+class Field
   include Grounded
 end

@@ -15,7 +15,7 @@ FactoryBot.define do
     trait :with_grazer do
       initialize_with do
         point = new(build(:entity, :land))
-        point.push_entity(build(:entity, :grazer))
+        point.push_entity!(build(:entity, :grazer))
         point
       end
     end

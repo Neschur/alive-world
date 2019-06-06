@@ -2,6 +2,7 @@ module Actors
   class GrazerActor
     def initialize(entity, world:, x:, y:)
       @entity = entity
+      @x, @y = x, y
     end
 
     def action_result

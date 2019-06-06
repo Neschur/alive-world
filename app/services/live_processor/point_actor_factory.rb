@@ -12,7 +12,8 @@ class LiveProcessor
 
     def actors
       point.entities.map do |entity|
-        actor_class(entity).new(entity, world: world, x: x, y: y)
+        # actor_class(entity).new(entity, world: world, x: x, y: y)
+        actor_class(entity).new(entity)
       end
     end
 

@@ -7,7 +7,7 @@ class WorldGenerator
         each_point do |_x, _y, point|
           entity = random_entity
 
-          point.push_entity(entity) if entity
+          point.push_entity!(entity) if entity
         end
       end
 
