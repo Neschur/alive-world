@@ -16,10 +16,9 @@ describe WorldGenerator do
       expect(world).to be_a(World)
 
       size = world.size
-      size[:lat].times do |x|
-        size[:long].times do |y|
+      size[:xx].times do |x|
+        size[:yy].times do |y|
           point = world[x, y]
-
           expect(point).to be_a(Point)
           expect(point.landscape).not_to be_nil
         end
