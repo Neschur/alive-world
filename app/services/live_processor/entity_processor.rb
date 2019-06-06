@@ -6,44 +6,17 @@ class LiveProcessor
       @x, @y = x, y
     end
 
-    # TODO - to another class, refactor
     def view_field
-      view_size = 5
-      radius = view_size / 2
-      field = Array.new(5) { Array.new(5) }
-
-      ground = (0..(view_size - 1)).map do |delta_x|
-        (0..(view_size - 1)).map do |delta_y|
-          current_x = x - delta_x + radius
-          current_y = y - delta_y + radius
-
-          point = world[current_x, current_y]
-
-          if current_x == x && current_y == y
-            point = point.copy
-            point.remove_entity!(entity)
-          end
-
-          point
-        end
-      end
-
-      Field.new(ground)
+      view_field_generator.new(world, entity, x: x, y: y, radius: 2)
     end
 
-    # TODO - to another class, refactor
     def get_action(view_field)
-      {
-        action: :move,
-        options: {
-          x: rand(3)-1,
-          y: rand(3)-1,
-        }
-      }
+      action_resolver.new(entity, view_field).call
     end
 
     # TODO - to another class, refactor
     def do_action(action_data)
+      action_processor.new(entity, world: world, action_data: action_data, x:  x, y: y)
       action = action_data
       options = action_data[:options]
       if action[:action] == :move && world[x + options[:x], y + options[:y]]
@@ -57,5 +30,22 @@ class LiveProcessor
     private
 
     attr_reader :world, :entity, :x, :y
+
+    def view_field_generator
+      entity_processor_class('ViewFieldGenerator')
+    end
+
+    def action_resolver
+      entity_processor_class('ActionResolver')
+    end
+
+    def action_processor
+      entity_processor_class('ActionProcessor')
+    end
+
+    def entity_processor_class(class_type)
+      entity_type_string = entity.type.to_s.camelize
+      "::LiveProcessor::EntityProcessor::#{entity_type_string}::#{class_type}".constantize
+    end
   end
 end
