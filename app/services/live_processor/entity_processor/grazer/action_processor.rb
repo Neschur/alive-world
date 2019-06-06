@@ -11,12 +11,7 @@ class LiveProcessor
         end
 
         def call
-          case action
-          when :move
-            action_move
-          when :eat
-            action_eat
-          end
+          action_class.new(entity, source_point: source_point, target_point: target_point).call
         end
 
         private
@@ -24,6 +19,7 @@ class LiveProcessor
         attr_reader :entity, :action, :options, :world, :x, :y
 
         def target_point
+          return unless options[:x] || options[:y]
           world[x + options[:x], y + options[:y]]
         end
 
@@ -31,22 +27,8 @@ class LiveProcessor
           world[x, y]
         end
 
-        # TODO: refactor actions
-        def action_move
-          return unless target_point && target_point.landscape == :land
-
-          source_point.remove_entity!(entity)
-          entity.health -= 1
-          target_point.push_entity!(entity) if entity.health.positive?
-        end
-
-        def action_eat
-          # TODO: move to another class
-          grass = source_point.entities.find { |e| e.type == :grass }
-          return unless grass
-
-          source_point.remove_entity!(grass)
-          entity.health += 5
+        def action_class
+          "#{self.class.name}::#{action.to_s.camelize}".constantize
         end
       end
     end

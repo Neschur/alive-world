@@ -12,7 +12,7 @@ class WorldGenerator
       end
 
       def random_entity
-        type = :grazer if turn_the_drum(0.003)
+        type = :grazer if turn_the_drum(0.03)
 
         Entity.new(type) if type
       end
