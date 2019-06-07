@@ -57,8 +57,12 @@ class WorldDrawer {
   }
 }
 
-
-document.addEventListener("DOMContentLoaded", function() {
-  const drawer = new WorldDrawer(worldData['ground']);
-  drawer.draw();
+App.cable.subscriptions.create("WorldUpdaterChannel", {
+  received: function(data) {
+    const worldData = JSON.parse(data['world']);
+    if(worldUuid && data['world_id'] == worldUuid) {
+      const drawer = new WorldDrawer(worldData['ground']);
+      drawer.draw();
+    }
+  }
 });

@@ -10,8 +10,11 @@ gem 'pg'
 gem 'pry'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
+gem 'redis'
 gem 'rspec-rails'
 gem 'sass-rails', '~> 5.0'
+gem 'sidekiq'
+gem 'sidekiq-unique-jobs'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'uglifier', '>= 1.3.0'
 
