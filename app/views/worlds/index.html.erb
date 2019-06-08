@@ -1,0 +1,11 @@
+<p> Create new world: </p>
+<%= form_with(local: true) do %>
+    <%= label_tag(:yy, "x size:") %>
+    <%= number_field_tag(:xx, create_params_permitter::DEFAULT_WORLD_SIZE, min: create_params_permitter::MIN_WORLD_SIZE, max: create_params_permitter::MAX_WORLD_SIZE) %>
+    <br>
+    <%= label_tag(:yy, "y size:") %>
+    <%= number_field_tag(:yy, create_params_permitter::DEFAULT_WORLD_SIZE, min: create_params_permitter::MIN_WORLD_SIZE, max: create_params_permitter::MAX_WORLD_SIZE) %>
+    <br>
+    <br>
+    <%= submit_tag("Create") %>
+<% end %>

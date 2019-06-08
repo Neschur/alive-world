@@ -1,0 +1,16 @@
+<script>
+  const worldUuid = '<%= @world_uuid %>';
+</script>
+
+<canvas id="world" width="400" height="400">
+</canvas>
+
+<%= form_with(url: world_path(@world_uuid), method: :patch) do %>
+    <%= label_tag(:delay, "Delay between steps:") %>
+    <%= number_field_tag(:delay, update_params_permitter::DEFAULT_DELAY_SIZE, step: update_params_permitter::MIN_DELAY_SIZE, min: update_params_permitter::MIN_DELAY_SIZE, max: update_params_permitter::MAX_DELAY_SIZE) %>
+    <br>
+    <%= label_tag(:steps, "Steps count:") %>
+    <%= number_field_tag(:steps, update_params_permitter::DEFAULT_STEPS_SIZE, min: update_params_permitter::MIN_STEPS_SIZE, max: update_params_permitter::MAX_STEPS_SIZE) %>
+    <br>
+    <%= submit_tag("Execute") %>
+<% end %>

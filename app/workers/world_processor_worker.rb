@@ -14,6 +14,8 @@ class WorldProcessorWorker
     steps = options.fetch('steps', 1)
     delay = options.fetch('delay', DEFAULT_DELAY)
 
+    return unless store_world
+
     processor = LiveProcessor.new(store_world.load_world)
 
     result = nil
@@ -38,11 +40,7 @@ class WorldProcessorWorker
   end
 
   def store_world
-    Store::World.where(id: world_id).first || Store::World.create(id: world_id, data: generate_world.to_json)
-  end
-
-  def generate_world
-    world = WorldGenerator.new(size: { x: 40, y: 40 }).call
+    Store::World.find_by(id: world_id)
   end
 
   def execute_with_delay(delay)
