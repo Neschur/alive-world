@@ -20,7 +20,7 @@ class WorldProcessorWorker
     while steps > 0
       execute_with_delay(delay) do
         result = processor.step
-        send_data(result.to_json)
+        send_data(result.to_json, last_step: steps <= 1)
         steps -= 1
       end
     end
@@ -32,9 +32,9 @@ class WorldProcessorWorker
 
   attr_reader :world_id
 
-  def send_data(world_data)
+  def send_data(world_data, last_step:)
     # TODO: Move to worker
-    ActionCable.server.broadcast 'world_updater', world: world_data, world_id: world_id
+    ActionCable.server.broadcast 'world_updater', world: world_data, world_id: world_id, last_step: last_step
   end
 
   def store_world
