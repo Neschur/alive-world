@@ -6,7 +6,7 @@ class WorldController < ApplicationController
   def show
     @world_uuid = uuid
 
-    WorldProcessorWorker.perform_async(uuid)
+    WorldProcessorWorker.perform_async(uuid, steps: 10)
 
     render :show
   end

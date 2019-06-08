@@ -1,24 +1,31 @@
 class WorldProcessorWorker
   include Sidekiq::Worker
 
+  DEFAULT_DELAY = 0.1
+
   sidekiq_options lock: :until_and_while_executing, unique_args: :unique_args
 
   def self.unique_args(args)
     [args[0]]
   end
 
-  def perform(world_id, still = 200)
+  def perform(world_id, options = {})
     @world_id = world_id
+    steps = options.fetch('steps', 1)
+    delay = options.fetch('delay', DEFAULT_DELAY)
 
     processor = LiveProcessor.new(store_world.load_world)
-    result = processor.step
-    send_data(result.to_json)
-    store_world.save_world!(result);
 
-    if still > 0
-      sleep(0.1)
-      WorldProcessorWorker.perform_async(world_id, still - 1)
+    result = nil
+    while steps > 0
+      execute_with_delay(delay) do
+        result = processor.step
+        send_data(result.to_json)
+        steps -= 1
+      end
     end
+
+    store_world.save_world!(result);
   end
 
   private
@@ -35,6 +42,17 @@ class WorldProcessorWorker
   end
 
   def generate_world
-    world = WorldGenerator.new(size: { x: 20, y: 20 }).call
+    world = WorldGenerator.new(size: { x: 40, y: 40 }).call
+  end
+
+  def execute_with_delay(delay)
+    start_time = current_time
+    yield
+    still_delay = delay - (current_time - start_time)
+    sleep(still_delay) if still_delay > 0
+  end
+
+  def current_time
+    Time.now.to_f
   end
 end
