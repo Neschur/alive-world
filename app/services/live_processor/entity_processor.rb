@@ -1,6 +1,6 @@
 class LiveProcessor
   class EntityProcessor
-    def initialize(world, entity, x: x, y: y)
+    def initialize(world, entity, x:, y:)
       @world = world
       @entity = entity
       @x, @y = x, y

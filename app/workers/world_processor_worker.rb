@@ -1,7 +1,7 @@
 class WorldProcessorWorker
   include Sidekiq::Worker
 
-  sidekiq_options lock: :until_and_while_executing, unique_args: :unique_arg
+  sidekiq_options lock: :until_and_while_executing, unique_args: :unique_args
 
   def self.unique_args(args)
     [args[0]]
